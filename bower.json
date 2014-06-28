@@ -1,0 +1,24 @@
+{
+  "name": "Concentration",
+  "version": "0.0.0",
+  "authors": [
+    "ryngonzalez <ryan@ionizedmedia.com>"
+  ],
+  "description": "A game of connections.",
+  "main": "server.coffee",
+  "keywords": [
+    "memory",
+    "concentration",
+    "linkedin"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/ryngonzalez/Concentration",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
