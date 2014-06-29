@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Concentration!</title>
+  <link rel="stylesheet" href="styles/app.css">
+  <script src="./scripts/lib/dynamics.js"></script>
+  <script src="./scripts/lib/tweenmachine.js"></script>
+  <script src="./scripts/lib/angular/angular.js"></script>
+  <script src="./scripts/lib/angular-animate/angular-animate.js"></script>
+  <script src="./scripts/lib/lodash/dist/lodash.compat.js"></script>
+  <script src="./scripts/app.js"></script>
+  <script type="text/javascript" src="//use.typekit.net/uib5rpq.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+</head>
+<body ng-app="App">
+<h1>Play Concentration</h1>  
+<div ng-controller="GameController">
+  <div class="deck">
+    <card info="card" ng-repeat="card in decks.current.all()"></card>
+  </div>
+</div>
+</body>
+</html>

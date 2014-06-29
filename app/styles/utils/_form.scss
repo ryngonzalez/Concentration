@@ -1,0 +1,20 @@
+@mixin placeholder($selector: "") {
+  @if $selector != "" {
+    #{$selector}::-webkit-input-placeholder { @content }
+    #{$selector}:-moz-placeholder      { @content }
+    #{$selector}::-moz-placeholder     { @content }
+    #{$selector}:-ms-input-placeholder { @content }
+  } @else {
+    ::-webkit-input-placeholder { @content }
+    :-moz-placeholder      { @content }
+    ::-moz-placeholder     { @content }
+    :-ms-input-placeholder { @content }
+  }
+}
+
+@mixin form-image($image-path) {
+  background-image: url($image-path);
+  background-repeat: no-repeat;
+  background-position: 95% 50%;
+  background-size: 16px;
+}

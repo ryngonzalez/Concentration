@@ -1,0 +1,12 @@
+@import 'utils/rem';
+
+html, body {
+  font-size: 16px;
+}
+
+h1 { @include rem(font-size, 36px); }
+h2 { @include rem(font-size, 28px); }
+h3 { @include rem(font-size, 24px); }
+h4 { @include rem(font-size, 22px); }
+h5 { @include rem(font-size, 20px); }
+h6 { @include rem(font-size, 18px); }

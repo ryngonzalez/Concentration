@@ -1,0 +1,27 @@
+.entrance {
+  @extend %absolute-center;
+  height: 200px;
+  text-align: center;
+  
+  .title {
+    margin-bottom: 24px;
+    // font-family: "ff-tisa-sans-web-pro";
+    // font-weight: 600;
+    
+  }
+
+  .description {
+    margin-bottom: 48px;
+    color: #666;
+  }
+
+  .login-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    span {
+      font-weight: 600;
+    }
+  }
+
+}
+

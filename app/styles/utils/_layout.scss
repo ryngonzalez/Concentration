@@ -1,0 +1,17 @@
+// 
+// Layout
+// ======
+// Utilities for consistent layout-ing.
+// 
+
+@mixin align-center {
+  margin: 0 auto;
+}
+
+@mixin align-vertical-center($container: false) {
+  @if $container { display: table; }
+  @else {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}

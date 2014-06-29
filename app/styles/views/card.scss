@@ -1,0 +1,59 @@
+@import '../utils/index';
+
+.card-container {
+  @include square(150px);
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  margin: 16px;
+  @include prefix-property(transform-style, preserve-3d);
+  // @include prefix-property(transition, 300ms all ease-in-out);
+  // &:active {
+  //   @include prefix-property(transform, rotateY(180deg))
+  // }
+
+  .face {
+    overflow: hidden;
+    text-align: center;
+    border-radius: 8px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include prefix-property(backface-visibility, hidden);
+  
+    &.name {
+      padding: 16px;
+    }
+
+    &.front {
+      @include prefix-property(transform, rotateY(180deg));
+      border: 1px solid #eee;
+      background-color: white;
+      z-index: 2;
+    }
+    &.back {
+      color: white;
+      z-index: 1;
+      background-color: #ccc;
+    }
+  }
+
+
+  img {
+    width: 100%;
+  }
+
+  
+  .name {
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+
+  .title {
+    line-height: 1.2;
+    font-size: 13px;
+    color: #aaa;
+  }
+}

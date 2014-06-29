@@ -1,0 +1,33 @@
+@import 'gradient';
+
+// truncate(): Truncate single-line text
+// `width` or `max-width` must be specified
+%truncate-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+%hyphens {
+  // Word Breaking
+  -ms-word-break: break-all;
+  word-break:     break-all;
+  word-break:     break-word;
+  // Hyphenation
+  -webkit-hyphens: auto;
+  -moz-hyphens:    auto;
+  hyphens:         auto;
+}
+
+// Hackety hack that works for webkit
+@mixin truncate-multiline($numlines) {
+  display: inline-block;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: $numlines;
+  -webkit-box-orient: vertical;
+}
+
+@for $index from 1 through 6 {
+  %truncate-#{$index} {@include truncate-multiline($index);}
+}

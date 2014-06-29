@@ -1,0 +1,17 @@
+
+@mixin flexbox() {
+  display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -webkit-flex;     /* NEW - Chrome */
+  display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+@mixin flex($args) {
+  -webkit-box-flex: $args;      /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex: $args;         /* OLD - Firefox 19- */
+
+  -webkit-flex: $args;          /* Chrome */
+  -ms-flex: $args;              /* IE 10 */
+  flex: $args;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}

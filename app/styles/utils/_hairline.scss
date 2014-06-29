@@ -1,0 +1,37 @@
+
+@function hairline($color, $opacity, $bottom: true) {
+  $color: ie-hex-string($color);
+  
+  $y: 0.5;
+  @if $bottom == false {
+    $y: 0.0;
+  }
+
+  @return url("data:image/svg+xml;utf8,
+              <svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'>
+                <rect fill='#{$color}' fill-opacity='#{$opacity}' x='0' y='#{$y}' width='1' height='0.5'/>
+              </svg>");
+}
+
+@mixin hairline($color, $side: 'bottom', $opacity: 0.15, $hairline-color: black) {
+  background-color: $color;
+  background-repeat: repeat-x; 
+  @if $side == 'both' {
+    background-image: hairline($hairline-color, $opacity, true), 
+                      hairline($hairline-color, $opacity, false);
+    background-position: left bottom, left top; 
+  } @else if $side == 'top' {
+    background-image: hairline($hairline-color, $opacity, false);
+    background-position: left unquote($side); 
+  } @else if $side == 'bottom' {
+    background-image: hairline($hairline-color, $opacity, true);
+    background-position: left unquote($side); 
+  } @else {
+    @warn "Hairline must be one of 'bottom', 'top', or 'both'.";
+  }
+
+}
+
+%hairline-top    { @include hairline(white, 'top');   }
+%hairline-bottom { @include hairline(white, 'bottom');}
+%hairline-both   { @include hairline(white, 'both');  }

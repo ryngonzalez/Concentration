@@ -1,0 +1,33 @@
+
+@import 'utils/index';
+@include meyer-reset();
+
+
+@import 'colors';
+@import 'typography';
+@import 'views/index';
+
+* {
+  box-sizing: border-box; 
+}
+
+html, body {
+  font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  @include prefix-property(font-smoothing, antialiased);
+  background: #fcfcfc;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  &:visited {opacity: 0.5;}
+}
+
+.button {
+  $size: 16px;
+  padding: $size $size*2;
+  border-radius: 4px;
+  background-color: $blue;
+  &:hover { background-color: darken($blue, 5%); }
+  &:active { background-color: darken($blue, 10%); box-shadow: inset 0px 0px 4px rgba(0,0,0,0.3); }
+}

@@ -1,0 +1,28 @@
+@import "keyframes";
+
+@mixin bounce($selector, $name, $distance, $direction, $duration, $elasticity: 0.04) {
+  @if $direction == "down" or $direction == "right" {
+    $distance: ($distance * -1);
+  }
+
+  $overshoot: translate3d(0, 0, 0); 
+  $end: translate3d(0, 0, 0);
+  @if $direction == "up" or $direction == "down" {
+    $overshoot: translate3d(0, $distance * $elasticity, 0); 
+    $end: translate3d(0, $distance, 0);
+  } @else if $direction == "left" or $direction == "right" {
+    $overshoot: translate3d($distance * $elasticity, 0, 0); 
+    $end: translate3d($distance, 0, 0);
+  }
+
+  #{$selector} {
+    @include prefix-property(animation, $name $duration); 
+  }
+  @include keyframes($name) {
+    0%         { @include prefix-property(transform, $end); }
+    60%        { @include prefix-property(transform, $end); }
+    80%        { @include prefix-property(transform, $overshoot); }
+    90%        { @include prefix-property(transform, translate3d(0, -2px, 0)); }  
+    75%, 100%  { @include prefix-property(transform, translate3d(0, 0, 0)); }  
+  }
+}

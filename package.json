@@ -26,11 +26,18 @@
     "gulp-bower-files": "^0.2.5",
     "gulp-coffee": "^2.0.1",
     "gulp-concat": "^2.2.0",
+    "gulp-cssmin": "^0.1.6",
     "gulp-sass": "^0.7.2",
     "node-sass": "^0.9.3"
   },
   "dependencies": {
     "coffee-script": "^1.7.1",
-    "express": "^4.4.5"
+    "ejs": "^1.0.0",
+    "express": "^4.4.5",
+    "express-session": "^1.6.1",
+    "passport": "^0.2.0",
+    "passport-linkedin-oauth2": "^1.1.1",
+    "request": "^2.36.0",
+    "xml2js": "^0.4.4"
   }
 }

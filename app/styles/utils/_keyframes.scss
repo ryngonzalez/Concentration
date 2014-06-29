@@ -1,0 +1,13 @@
+// 
+// Keyframes
+// =========
+// Utilities for animations
+// 
+
+@mixin keyframes($name, $webkit: true, $ms: true, $moz: true, $o: true, $base: true) {
+  @if $webkit { @-webkit-keyframes #{$name} { @content; } }
+  @if $ms     { @-moz-keyframes    #{$name} { @content; } }
+  @if $moz    { @-ms-keyframes     #{$name} { @content; } }
+  @if $o      { @-o-keyframes      #{$name} { @content; } }
+  @if $base   { @keyframes         #{$name} { @content; } }
+}

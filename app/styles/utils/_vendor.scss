@@ -1,0 +1,40 @@
+// 
+// Vendor
+// ======
+// Utilities for Vendor Differences
+// 
+
+// Set the platforms you want to support throughout this project
+$webkit: true;
+$moz: true;
+$ms: true;
+$o: true;
+$base: true;
+
+$prefixes: ();
+
+@if $webkit { $prefixes: append($prefixes, '-webkit-'); }
+@if $moz    { $prefixes: append($prefixes, '-moz-');    }
+@if $ms     { $prefixes: append($prefixes, '-ms-');     }
+@if $o      { $prefixes: append($prefixes, '-o-');      }
+@if $base   { $prefixes: append($prefixes, '');         }
+
+@mixin prefix-property($property, $argument) {
+  @if $webkit { -webkit-#{$property}: $argument; }
+  @if $ms     { -ms-#{$property}:     $argument; }
+  @if $moz    { -moz-#{$property}:    $argument; }
+  @if $o      { -o-#{$property}:      $argument; }
+  @if $base   { #{$property}:         $argument; }
+}
+
+@mixin prefix-argument($property, $argument) {
+  @each $prefix in $prefixes {
+    #{$property}: #{$prefix}#{$argument};
+  }
+}
+
+@mixin prefix-both($property, $argument) {
+  @each $prefix in $prefixes {
+    #{$prefix}#{$property}: #{$prefix}#{$argument};
+  }
+}

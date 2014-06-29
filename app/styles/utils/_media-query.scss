@@ -1,0 +1,45 @@
+// Device sizes
+$ipad-width: 768px;
+$ipad-height: 1024px;
+
+$iphone-width: 0px;
+$iphone-height-short: 480px;
+$iphone-height-tall: 568px;
+
+@mixin respond-to($device, $orientation: '') {
+  @if $device == 'iphone-tall' {
+    $aspect-ratio: '40/71';
+    @if $orientation == 'portrait' or $orientation == 'landscape' {
+      @media only screen and (min-device-width: $iphone-width) and (max-device-width: $iphone-height-tall) and (orientation: $orientation) and (device-aspect-ratio: $aspect-ratio) { 
+        @content;
+      }
+    } @else {
+      @media only screen and (min-device-width: $iphone-width) and (max-device-width: $iphone-height-tall) and (device-aspect-ratio: $aspect-ratio) { 
+        @content;
+      }
+    }
+  }
+  @if $device == 'iphone-short' {
+    $aspect-ratio: '2/3';
+    @if $orientation == 'portrait' or $orientation == 'landscape' {
+      @media only screen and (min-device-width: $iphone-width) and (max-device-width: $iphone-height-short) and (orientation: $orientation) and (device-aspect-ratio: $aspect-ratio) { 
+        @content;
+      }
+    } @else {
+      @media only screen and (min-device-width: $iphone-width) and (max-device-width: $iphone-height-short) and (device-aspect-ratio: $aspect-ratio) { 
+        @content;
+      }
+    }
+  }
+  @if $device == 'ipad' {
+    @if $orientation == 'landscape' {
+      @media only screen and (min-device-width: $ipad-width) and (max-device-width: $ipad-height) and (min-aspect-ratio: 4/3) { 
+        @content;
+      }
+    } @else {
+      @media only screen and (min-device-width: $ipad-width) and (max-device-width: $ipad-height) { 
+        @content;
+      }
+    }
+  }
+}

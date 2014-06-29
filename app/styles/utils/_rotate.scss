@@ -1,0 +1,12 @@
+// @include keyframes(rotate) {
+//   0%   {@include prefix-property(transform, rotate(0deg));  }
+//   100% {@include prefix-property(transform, rotate(360deg));}
+// }
+
+$rotate-duration: 800ms;
+%rotate-animation {
+  @include prefix-property(animation-name, rotate);
+  @include prefix-property(animation-duration, $rotate-duration);
+  @include prefix-property(animation-timing-function, ease-in-out);
+  @include prefix-property(animation-iteration-count, infinite);
+}

@@ -1,0 +1,29 @@
+// 
+// Rem
+// ======
+// Utilities for setting everything in terms of rems
+// 
+
+// Thanks to Maykel Loomans
+// http://miekd.com/articles/sizing-type-leading-and-vertical-dimensions-with-rem-units/
+$baseFontSize: 16px;
+@mixin rem($property, $px_values) {
+  $baseline_rem: ($baseFontSize / 1rem);
+  #{$property}: $px_values;
+ 
+  @if type-of($px_values) == 'number' {
+    #{$property}: $px_values / $baseline_rem;
+  } 
+  @else {
+    $rem_values: ();
+ 
+    @each $value in $px_values {
+      @if $value == 0 {
+        $rem_values: append($rem_values, $value);
+      } @else {
+        $rem_values: append($rem_values, ($value / $baseline_rem) );
+      }
+    }
+    #{$property}: $rem_values;
+  }
+}
