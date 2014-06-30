@@ -4,7 +4,8 @@
   "description": "A game of connections.",
   "main": "app/server.coffee",
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "start": "coffee app.coffee"
   },
   "repository": {
     "type": "git",
