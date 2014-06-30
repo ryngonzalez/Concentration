@@ -40,12 +40,12 @@
     </div>
     
   </div>
-  <div>
-    <div class="deck">
-      <card info="card" state="gameState" ng-repeat="card in decks.current.all()"></card>
-    </div>
+  <div class="deck">
+    <card info="card" state="gameState" ng-repeat="card in decks.current.all()"></card>
   </div>
-
+  <div class="bottom-controls" ng-hide="decks.current.names.length < pageSize">
+    <a ng-click="next()" class="button next">Next Group &rarr;</a>
+  </div>
 </div>
 </body>
 </html>

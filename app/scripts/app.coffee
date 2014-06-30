@@ -29,6 +29,14 @@ angular.module('App', dependencies)
       new Card(connection)
     )
 
+  $scope.next = ->
+    connections.nextPage().then (selection) ->
+      $scope.decks.current = new Deck(selection.map (connection) ->
+        new Card(connection)
+      )
+
+  $scope.pageSize = 8
+
   $scope.gameState = 
     matches: []
 

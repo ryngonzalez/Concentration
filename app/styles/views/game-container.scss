@@ -38,4 +38,22 @@
     color: #aaa;
   }
 
+  .deck {
+    margin-bottom: 24px;
+  }
+
+  .bottom-controls {
+    text-align: center;
+  }
+
+  .next {
+    display: inline-block;
+    color: $blue;
+    background: white;
+    border: 2px solid lighten($blue, 10%);
+    &:hover {
+      background-color: lighten($blue, 50%);
+    }
+  }
+
 }

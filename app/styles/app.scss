@@ -58,3 +58,7 @@ a {
   &:hover { background-color: darken($blue, 5%); }
   &:active { background-color: darken($blue, 10%); box-shadow: inset 0px 0px 8px rgba(0,0,0,0.3); }
 }
+
+[ng-click], a, .button, button {
+  cursor: pointer;
+}

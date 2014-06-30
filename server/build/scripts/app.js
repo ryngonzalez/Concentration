@@ -26,6 +26,14 @@
         return new Card(connection);
       }));
     });
+    $scope.next = function() {
+      return connections.nextPage().then(function(selection) {
+        return $scope.decks.current = new Deck(selection.map(function(connection) {
+          return new Card(connection);
+        }));
+      });
+    };
+    $scope.pageSize = 8;
     $scope.gameState = {
       matches: []
     };
