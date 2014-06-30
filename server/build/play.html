@@ -28,14 +28,14 @@
   <div class="controls">
     <div class="left-controls">
 
-      <a href="/logout" class="button logout"><img ng-src="{{user.pictureUrl}}" alt="">Logout</a>
+      <a href="/logout" class="button logout"><img ng-src="{{user.pictureUrl}}" alt="">Logout, <span ng-bind="user.firstName"></span></a>
     </div>
     <div class="center">
       <h1 ng-bind-html="'Concentration' | lettering" class="logo"></h1>  
       <p>Hi, <span ng-bind="user.firstName"></span>! Flip cards and match a name to a face!</p>
     </div>
     <div class="right-controls">
-      <a class="button" ng-click="showScores = !showScores">Score: <span ng-bind="gameState.score"></span></a>
+      <a class="button" ng-click="showScores = !showScores">Score: <span ng-bind="gameState.score"></span> | Attempts: <span ng-bind="gameState.attempts"></span></a>
     </div>
     
   </div>

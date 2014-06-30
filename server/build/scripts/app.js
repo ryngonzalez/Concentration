@@ -30,7 +30,8 @@
     };
     $scope.pageSize = pageSize - 1;
     $scope.gameState = {
-      matches: []
+      matches: [],
+      attempts: 0
     };
     $scope.showScores = false;
     $scope.cardify = function(match) {
@@ -339,6 +340,7 @@
                 if (((_ref = scope.gameState.last) != null ? _ref.length : void 0) > 1 || scope.gameState.matches.length === 0) {
                   return scope.gameState.matches.push([scope.card]);
                 } else {
+                  scope.gameState.attempts += 1;
                   if (scope.gameState.last[0].id === scope.card.id && scope.gameState.last[0] !== scope.card.type) {
                     openCard = scope.gameState.last[0];
                     scope.gameState.last.push(scope.card);

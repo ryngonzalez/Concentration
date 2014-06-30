@@ -65,7 +65,7 @@ angular.module('App.Directives')
               if scope.gameState.last?.length > 1 or scope.gameState.matches.length is 0
                 scope.gameState.matches.push [scope.card]
               else
-
+                scope.gameState.attempts += 1
                 # The match as correct, and we set the cards as a match
                 if scope.gameState.last[0].id is scope.card.id and scope.gameState.last[0] isnt scope.card.type
                   [openCard] = scope.gameState.last

@@ -42,6 +42,7 @@ angular.module('App', dependencies)
   # Create the saved gameState that is used in all the card components
   $scope.gameState = 
     matches: []
+    attempts: 0
 
   # Toggle the scoresheet
   $scope.showScores = false
