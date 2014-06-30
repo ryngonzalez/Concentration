@@ -17,10 +17,11 @@ module.exports = (app) ->
   passport.deserializeUser serializeHandler
 
   # Construct the callback url for the given environment
-  url = if app.get('env') is 'development'
-    'http://localhost:3000'
-  else
-    'http://concentrationapp.herokuapp.com'
+  # url = if app.get('env') is 'development'
+  #   'http://localhost:3000'
+  # else
+  #   'http://concentrationapp.herokuapp.com'
+  url = 'http://concentrationapp.herokuapp.com'
 
   console.log url
 
