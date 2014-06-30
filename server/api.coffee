@@ -8,20 +8,29 @@ URL = 'https://api.linkedin.com/v1'
 module.exports = (app) ->
   apiRouter = express.Router()
   
+  # Make default query params factory
+  base = (req) ->
+    return {
+      format: 'json',
+      oauth2_access_token: req.session.token
+    }
+
   # All API calls need to be authed
   apiRouter.use ensureAuth
 
   # Get all 1st degree connections for the current user
   apiRouter.get '/connections', (req, res) ->
-    request(URL + '/people/~/connections?format=json', {
-      qs: {oauth2_access_token: req.session.token}
-    }).pipe(res)
+    {start, count} = req.query
+    query = base(req)
+    
+    query.start = start if start?
+    query.count = count if count?
+
+    request("#{URL}/people/~/connections", qs: query).pipe(res)
 
   # We want large, nice pictures, so we'll expose an endpoint for them
   apiRouter.get '/profile_images/:id', (req, res) ->
-    request(URL + "/people/#{req.params.id}/picture-urls::(original)?format=json", {
-      qs: {oauth2_access_token: req.session.token}
-    }).pipe(res)
+    request("#{URL}/people/#{req.params.id}/picture-urls::(original)", qs: base(req)).pipe(res)
 
   # Get profile information
   apiRouter.get '/profile', (req, res) ->

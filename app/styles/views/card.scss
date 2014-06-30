@@ -9,7 +9,9 @@
   margin: 16px;
 
   &.set {
-    opacity: 0.5;
+    .face.front:after {
+      opacity: 1;
+    }
   }
 
   &.ng-enter-stagger{
@@ -55,20 +57,25 @@
       border: 1px solid #ddd;
       background-color: white;
       z-index: 2;
-      // &:after {
-        
-      //   display: block;
-      //   position: absolute;
-      //   top: 0;
-      //   left: 0;
-      //   width: 100%;
-      //   height: 100%;
-      //   color: $green;
-      //   border-radius: 8px;
-      //   background: transparentize(lighten($green, 10%), 0.5);
-      //   border: 2px solid $green;
-      //   z-index: 3;
-      // }
+      &:after {
+        display: block;
+        content: '';
+        position: absolute;
+        opacity: 0;
+        @include prefix-property(transition, all 300ms ease-in-out);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        color: $green;
+        border-radius: 8px;
+        background-color: transparentize(#333, 0.2);
+        background-image: url(/assets/check.png);
+        background-repeat: no-repeat;
+        background-size: 44px;
+        background-position: 50% 50%;
+        z-index: 3;
+      }
     }
     &.back {
       z-index: 1;

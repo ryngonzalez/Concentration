@@ -87,7 +87,7 @@ angular.module('App.Directives')
               if scope.gameState.last?.length > 1 or scope.gameState.matches.length is 0
                 scope.gameState.matches.push [scope.card]
               else
-                if scope.gameState.last[0].id is scope.card.id
+                if scope.gameState.last[0].id is scope.card.id and scope.gameState.last[0] isnt scope.card.type
                   [openCard] = scope.gameState.last
                   scope.gameState.last.push scope.card
                   $rootScope.$broadcast 'setMatch', openCard
@@ -99,15 +99,7 @@ angular.module('App.Directives')
                   flipped = true
           else
             flipped = true
-            flipToBack.start()
-
-        # return if updated or scope.card.type is 'name'
-        # updated = true
-        # $http
-        #   method: 'GET'
-        #   url: "#{location.origin}/api/profile_images/#{scope.card.id}"
-        # .then (image) ->
-        #   scope.card.picture = image.data.values[0]
+            flipToBack.start().then -> scope.gameState.matches.pop()
 
   }
 )

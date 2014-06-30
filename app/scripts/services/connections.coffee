@@ -7,21 +7,21 @@ angular.module('App.Services')
   return {
     pageNum: 1
 
-    get: (options = {refresh: false}) ->
-      {refresh} = options
-
+    get: (options) ->
+      {start, count} = options
+      
       deferred = $q.defer()
-      if connections? and not options.refresh
-        deferred.resolve(connections)
-      else      
-        $http
-          method: 'GET'
-          url: location.origin + '/api/connections'
-        .then (response) ->
-          connections = response.data
-          deferred.resolve connections
-        , (error) ->
-          deferred.reject error
+
+      $http
+        method: 'GET'
+        url: location.origin + '/api/connections'
+        params: {start, count} if start? and count?
+      .then (response) ->
+        connections = response.data
+        console.log connections
+        deferred.resolve connections
+      , (error) ->
+        deferred.reject error
 
       return deferred.promise
 
@@ -39,11 +39,9 @@ angular.module('App.Services')
       throw new Error 'pageNum must be greater than 1' if pageNum < 1
       
       # Get the values, and then partition it
-      @get().then ({values}) ->
+      start = pageSize * (pageNum - 1)
+      end   = pageSize * pageNum
 
-        start = pageSize * (pageNum - 1)
-        end   = pageSize * pageNum
-
-        values[start...end]
+      @get({start,count: pageSize}).then ({values}) -> values
   }
 

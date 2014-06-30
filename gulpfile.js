@@ -17,7 +17,7 @@ function prefix(path) {
 
 gulp.task('assets', function(){
   return gulp.src('app/assets/**/*')
-             .pipe(gulp.dest(prefix('app/assets')));
+             .pipe(gulp.dest(prefix('/assets')));
 });
 
 gulp.task('scss', function(){

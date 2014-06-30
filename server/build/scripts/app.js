@@ -11,12 +11,16 @@
 
   angular.module('App.Models', []);
 
-  angular.module('App', dependencies).controller('GameController', function($scope, connections, Deck, Card) {
+  angular.module('App', dependencies).controller('GameController', function($scope, connections, profile, Deck, Card) {
     console.log('Loaded game controller');
     window.connections = connections;
     $scope.decks = {
       current: null
     };
+    profile.get().then(function(user) {
+      console.log(user);
+      return $scope.user = user;
+    });
     connections.page().then(function(selection) {
       return $scope.decks.current = new Deck(selection.map(function(connection) {
         return new Card(connection);
@@ -138,27 +142,23 @@
     return {
       pageNum: 1,
       get: function(options) {
-        var deferred, refresh;
-        if (options == null) {
-          options = {
-            refresh: false
-          };
-        }
-        refresh = options.refresh;
+        var count, deferred, start;
+        start = options.start, count = options.count;
         deferred = $q.defer();
-        if ((connections != null) && !options.refresh) {
-          deferred.resolve(connections);
-        } else {
-          $http({
-            method: 'GET',
-            url: location.origin + '/api/connections'
-          }).then(function(response) {
-            connections = response.data;
-            return deferred.resolve(connections);
-          }, function(error) {
-            return deferred.reject(error);
-          });
-        }
+        $http({
+          method: 'GET',
+          url: location.origin + '/api/connections',
+          params: (start != null) && (count != null) ? {
+            start: start,
+            count: count
+          } : void 0
+        }).then(function(response) {
+          connections = response.data;
+          console.log(connections);
+          return deferred.resolve(connections);
+        }, function(error) {
+          return deferred.reject(error);
+        });
         return deferred.promise;
       },
       refresh: function() {
@@ -174,7 +174,7 @@
         });
       },
       page: function(options) {
-        var pageNum, pageSize;
+        var end, pageNum, pageSize, start;
         if (options == null) {
           options = {
             pageSize: 9,
@@ -185,12 +185,38 @@
         if (pageNum < 1) {
           throw new Error('pageNum must be greater than 1');
         }
-        return this.get().then(function(_arg) {
-          var end, start, values;
+        start = pageSize * (pageNum - 1);
+        end = pageSize * pageNum;
+        return this.get({
+          start: start,
+          count: pageSize
+        }).then(function(_arg) {
+          var values;
           values = _arg.values;
-          start = pageSize * (pageNum - 1);
-          end = pageSize * pageNum;
-          return values.slice(start, end);
+          return values;
+        });
+      }
+    };
+  });
+
+}).call(this);
+
+(function() {
+  angular.module('App.Services').service('profile', function($http) {
+    return {
+      get: function() {
+        return $http({
+          method: 'GET',
+          url: location.origin + '/api/profile'
+        }).then(function(response) {
+          var firstName, headline, lastName, pictureUrl, _ref, _ref1, _ref2;
+          _ref2 = (_ref = response.data) != null ? (_ref1 = _ref.user) != null ? _ref1._json : void 0 : void 0, firstName = _ref2.firstName, lastName = _ref2.lastName, headline = _ref2.headline, pictureUrl = _ref2.pictureUrl;
+          return {
+            firstName: firstName,
+            lastName: lastName,
+            headline: headline,
+            pictureUrl: pictureUrl
+          };
         });
       }
     };
@@ -294,7 +320,7 @@
                 if (((_ref = scope.gameState.last) != null ? _ref.length : void 0) > 1 || scope.gameState.matches.length === 0) {
                   return scope.gameState.matches.push([scope.card]);
                 } else {
-                  if (scope.gameState.last[0].id === scope.card.id) {
+                  if (scope.gameState.last[0].id === scope.card.id && scope.gameState.last[0] !== scope.card.type) {
                     openCard = scope.gameState.last[0];
                     scope.gameState.last.push(scope.card);
                     $rootScope.$broadcast('setMatch', openCard);
@@ -309,7 +335,9 @@
               });
             } else {
               flipped = true;
-              return flipToBack.start();
+              return flipToBack.start().then(function() {
+                return scope.gameState.matches.pop();
+              });
             }
           });
         });

@@ -13,12 +13,16 @@ angular.module('App.Filters', [])
 angular.module('App.Models', [])
 angular.module('App', dependencies)
 
-.controller('GameController', ($scope, connections, Deck, Card) ->
+.controller('GameController', ($scope, connections, profile, Deck, Card) ->
   console.log 'Loaded game controller'
   window.connections = connections
   
   $scope.decks = 
     current: null
+
+  profile.get().then (user) ->
+    console.log user
+    $scope.user = user
 
   connections.page().then (selection) ->
     $scope.decks.current = new Deck(selection.map (connection) ->
