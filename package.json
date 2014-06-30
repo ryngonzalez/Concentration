@@ -9,7 +9,6 @@
   "author": "Ryan Gonzalez",
   "devDependencies": {
     "gulp": "^3.8.5",
-    "gulp-angular-templatecache": "^1.2.1",
     "gulp-bower-files": "^0.2.5",
     "gulp-coffee": "^2.0.1",
     "gulp-concat": "^2.2.0",
@@ -24,7 +23,6 @@
     "express-session": "^1.6.1",
     "passport": "^0.2.0",
     "passport-linkedin-oauth2": "^1.1.1",
-    "request": "^2.36.0",
-    "xml2js": "^0.4.4"
+    "request": "^2.36.0"
   }
 }

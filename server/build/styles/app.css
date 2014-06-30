@@ -51,18 +51,17 @@ h6{font-size:18px;font-size:1.125rem}
 .card-container .face.front{-webkit-transform:rotateY(180deg);-ms-transform:rotateY(180deg);-moz-transform:rotateY(180deg);-o-transform:rotateY(180deg);transform:rotateY(180deg);border:1px solid #ddd;background-color:#fff;z-index:2}
 .card-container .face.front:after{display:block;content:'';position:absolute;opacity:0;-webkit-transition:all 300ms ease-in-out;-ms-transition:all 300ms ease-in-out;-moz-transition:all 300ms ease-in-out;-o-transition:all 300ms ease-in-out;transition:all 300ms ease-in-out;top:0;left:0;width:100%;height:100%;color:#66c415;border-radius:8px;background-color:rgba(51,51,51,.8);background-image:url(/assets/check.png);background-repeat:no-repeat;background-size:32px;background-position:50% 50%;z-index:3}
 .card-container .face.back{z-index:1;border:2px solid;padding-top:30px}
-.card-container .face.back h2{font-family:ff-tisa-sans-web-pro;font-weight:600;-webkit-transform:rotateZ(-10deg);-ms-transform:rotateZ(-10deg);-moz-transform:rotateZ(-10deg);-o-transform:rotateZ(-10deg);transform:rotateZ(-10deg);font-size:88px}
+.card-container .face.back h2{font-size:88px;font-weight:600;-webkit-transform:rotateZ(-10deg);-ms-transform:rotateZ(-10deg);-moz-transform:rotateZ(-10deg);-o-transform:rotateZ(-10deg);transform:rotateZ(-10deg)}
 .card-container img{width:100%}
 .card-container .name{margin-bottom:8px;line-height:1.1}
 .card-container .title{line-height:1.2;font-size:13px;color:#aaa}
-.deck{display:-webkit-flex;display:-moz-flex;display:-ms-flex;display:-o-flex;display:flex;-webkit-flex-flow:row wrap;-ms-flex-flow:row wrap;-moz-flex-flow:row wrap;-o-flex-flow:row wrap;flex-flow:row wrap;-webkit-justify-content:center;-ms-justify-content:center;-moz-justify-content:center;-o-justify-content:center;justify-content:center;-webkit-perspective:2000px;-ms-perspective:2000px;-moz-perspective:2000px;-o-perspective:2000px;perspective:2000px}
+.deck{display:-webkit-flex;display:-moz-flex;display:-ms-flex;display:-o-flex;display:flex;-webkit-flex-flow:row wrap;-ms-flex-flow:row wrap;-moz-flex-flow:row wrap;-o-flex-flow:row wrap;flex-flow:row wrap;-webkit-justify-content:center;-ms-justify-content:center;-moz-justify-content:center;-o-justify-content:center;justify-content:center;-webkit-perspective:2000px;-ms-perspective:2000px;-moz-perspective:2000px;-o-perspective:2000px;perspective:2000px;margin-bottom:24px}
 .game-container{margin-bottom:20px}
 .game-container .controls{margin:40px;display:-webkit-flex;display:-moz-flex;display:-ms-flex;display:-o-flex;display:flex;-webkit-flex-flow:row nowrap;-ms-flex-flow:row nowrap;-moz-flex-flow:row nowrap;-o-flex-flow:row nowrap;flex-flow:row nowrap;-webkit-justify-content:space-between;-ms-justify-content:space-between;-moz-justify-content:space-between;-o-justify-content:space-between;justify-content:space-between}
 .game-container .controls .button{display:block;padding:8px 16px;border-radius:16px}
 .game-container .controls .button span{font-weight:700}
 .game-container .left-controls .logout img{height:16px;margin:-4px 10px 0 -6px;border-radius:100%;line-height:0;vertical-align:middle}
 .game-container .center{text-align:center;color:#aaa}
-.game-container .deck{margin-bottom:24px}
 .game-container .bottom-controls{text-align:center}
 .game-container .next{display:inline-block;color:#007ee5;background:#fff;border:2px solid #199bff}
 .game-container .next:hover{background-color:#e5f4ff}

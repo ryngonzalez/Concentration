@@ -2,9 +2,6 @@ passport = require 'passport'
 
 module.exports = (app) ->
 
-  # Set permissions request parameters
-  
-
   # Start the login process via LinkedIn's OAuth
   app.get '/login', passport.authenticate('linkedin', {state: 'SOMESTATE'})
 

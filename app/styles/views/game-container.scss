@@ -3,6 +3,7 @@
 
 .game-container {
   margin-bottom: 20px;
+
   .controls {
     margin: 40px;
     @include prefix-argument(display, flex);
@@ -18,6 +19,7 @@
     } 
   }
 
+  // The profile image inset in the logout button
   .left-controls {
     .logout {
       img {      
@@ -36,10 +38,6 @@
   .center {
     text-align: center;
     color: #aaa;
-  }
-
-  .deck {
-    margin-bottom: 24px;
   }
 
   .bottom-controls {

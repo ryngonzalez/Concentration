@@ -1,5 +1,6 @@
 angular.module('App.Models')
 
+# Card model. Used for representing a connection in the app
 .factory 'Card', ->
 
   class Card
@@ -13,6 +14,7 @@ angular.module('App.Models')
       
       Card.cards[@id] = this
 
+    # Convenience method for finding a card by id
     @find = (id) ->
       Card.cards[id]
 

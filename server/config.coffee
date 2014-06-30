@@ -21,16 +21,13 @@ module.exports = (app) ->
     'http://localhost:3000'
   else
     'http://concentrationapp.herokuapp.com'
-  # url = 'http://concentrationapp.herokuapp.com'
-
-  console.log url
 
   # Setup and use the strategy
   linkedinConfig =
     scope:             ['r_basicprofile', 'r_network']
     callbackURL:       url + '/login/callback'
-    clientID:          process.env.LINKEDIN_KEY or '778xx5cmx3pzwe' 
-    clientSecret:      process.env.LINKEDIN_SECRET or 'SKZacepcAvGsSoYj'
+    clientID:          process.env.LINKEDIN_KEY
+    clientSecret:      process.env.LINKEDIN_SECRET
     passReqToCallback: true
 
   strategy = new LinkedIn.Strategy linkedinConfig, (req, token, secret, profile, done) ->

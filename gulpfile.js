@@ -3,23 +3,26 @@ var gulp          = require('gulp'),
     cssmin        = require('gulp-cssmin'),
     coffee        = require('gulp-coffee'),
     concat        = require('gulp-concat'),
-    bowerFiles    = require('gulp-bower-files'),
-    templateCache = require('gulp-angular-templatecache');
+    bowerFiles    = require('gulp-bower-files');
 
+// Do something useful on error
 function onError(err) {
   console.log(err);
   console.log(err.stack);
 }
 
+// Build a path with the correct destination prefix
 function prefix(path) {
   return 'server/build' + path;
 }
 
+// Copy over assets to build folder
 gulp.task('assets', function(){
   return gulp.src('app/assets/**/*')
              .pipe(gulp.dest(prefix('/assets')));
 });
 
+// Copy over styles to build folder
 gulp.task('scss', function(){
   return gulp.src('app/styles/**/*.scss')
              .pipe(sass({onError: onError}))
@@ -28,19 +31,13 @@ gulp.task('scss', function(){
              .pipe(gulp.dest(prefix('/styles')));
 });
 
+// Copy html files to build folder
 gulp.task('templates', function(){
-  // Main index file
-  var stream = gulp.src('app/*.html')
-                   .pipe(gulp.dest(prefix('/')));
-
-  // Angular Templates
-  gulp.src('app/templates/**/*.html')
-      .pipe(templateCache({standalone: true})).on('error', onError)
-      .pipe(gulp.dest(prefix('/scripts')));
-  
-  return stream;
+  return gulp.src('app/*.html')
+             .pipe(gulp.dest(prefix('/')));  
 });
 
+// Copy over scripts
 gulp.task('scripts', function(){
   gulp.src('app/lib/**')
       .pipe(gulp.dest(prefix('/scripts/lib')));
@@ -58,10 +55,12 @@ gulp.task('scripts', function(){
              .pipe(gulp.dest(prefix('/scripts')));
 });
 
+// Copy bower dependencies
 gulp.task('bower-files', function(){
   return bowerFiles().pipe(gulp.dest(prefix('/scripts/lib')));
 });
 
+// Build everything
 gulp.task('build', [
   'scss', 
   'templates',
@@ -70,6 +69,7 @@ gulp.task('build', [
   'bower-files'
 ]);
 
+// Watch and build
 gulp.task('watch', function(){
   return gulp.watch([
     'app/*.html', 

@@ -1,7 +1,9 @@
 angular.module('App.Services')
 
-.service 'connections', ($http, $q, $rootScope, pageSize) ->
+# Manages the connections from linkedin, handles pagination
+.service 'connections', ($http, pageSize) ->
 
+  # simple cache
   connections = null
 
   return {
@@ -9,29 +11,22 @@ angular.module('App.Services')
 
     get: (options) ->
       {start, count} = options
-      
-      deferred = $q.defer()
 
+      # Make a request to our api server
       $http
         method: 'GET'
         url: location.origin + '/api/connections'
         params: {start, count} if start? and count?
       .then (response) ->
+        # Cache the connections
         connections = response.data
-        console.log connections
-        deferred.resolve connections
-      , (error) ->
-        deferred.reject error
 
-      return deferred.promise
-
-    refresh: ->
-      @get refresh: true
-
+    # Get the next page of connections
     nextPage: ->
       @pageNum += 1
       @page({pageSize: pageSize, pageNum: @pageNum})
 
+    # Get a given page of results, given a page size and page number
     page: (options = {pageSize: pageSize, pageNum: 1}) ->
       {pageSize, pageNum} = options
 

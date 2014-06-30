@@ -23,14 +23,18 @@ module.exports = (app) ->
     {start, count} = req.query
     query = base(req)
     
+    # See if we want pagination
     query.start = start if start?
     query.count = count if count?
 
     request("#{URL}/people/~/connections", qs: query).pipe(res)
 
-  # We want large, nice pictures, so we'll expose an endpoint for them
-  apiRouter.get '/profile_images/:id', (req, res) ->
-    request("#{URL}/people/#{req.params.id}/picture-urls::(original)", qs: base(req)).pipe(res)
+  # I originally wanted this endpoint for nicer images; linkedin's rate-limiting
+  # and also the performance hit needed to make the multiple requests needed to use
+  # this was prohibitive. Leaving this here for documentation.
+  # 
+  # apiRouter.get '/profile_images/:id', (req, res) ->
+  #   request("#{URL}/people/#{req.params.id}/picture-urls::(original)", qs: base(req)).pipe(res)
 
   # Get profile information
   apiRouter.get '/profile', (req, res) ->

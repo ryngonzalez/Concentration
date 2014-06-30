@@ -16,6 +16,7 @@ app.get '/', goPlay, (req, res) ->
 app.get '/play', ensureAuth, (req, res) ->
   res.sendfile(__dirname + '/server/build/play.html')
 
+# Set the port for the given environment, accessible app-wide
 if app.get('env') is 'development'
   app.set('port', 3000)
 else

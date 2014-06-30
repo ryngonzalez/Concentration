@@ -1,6 +1,6 @@
 angular.module('App.Filters')
 
-.filter('lettering', () ->
+.filter('lettering', ->
   (text) ->
     if text?
       text = Array.prototype.map.call text, (character, index) ->

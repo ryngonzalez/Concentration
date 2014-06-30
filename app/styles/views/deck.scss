@@ -1,8 +1,13 @@
 @import '../utils/index';
 
 .deck {
+  // The deck is just a flexbox container for easy resizing
   @include prefix-argument(display, flex);
   @include prefix-property(flex-flow, row wrap);
   @include prefix-property(justify-content, center);
+
+  // Setup the perspective needed for the flipping
   @include prefix-property(perspective, 2000px);
+
+  margin-bottom: 24px;
 }

@@ -3,35 +3,30 @@
 
   dependencies = ['ngAnimate', 'ngSanitize', 'App.Models', 'App.Services', 'App.Directives', 'App.Filters'];
 
-  angular.module('App.Directives', []);
+  angular.module('App.Models', []);
+
+  angular.module('App.Directives', ['App.Models']);
 
   angular.module('App.Services', []);
 
   angular.module('App.Filters', []);
 
-  angular.module('App.Models', []);
-
   angular.module('App', dependencies).constant('pageSize', 9).controller('GameController', function($scope, connections, profile, Deck, Card, pageSize) {
-    console.log('Loaded game controller');
-    window.connections = connections;
+    var setDeck;
     $scope.decks = {
       current: null
     };
     profile.get().then(function(user) {
-      console.log(user);
       return $scope.user = user;
     });
-    connections.page().then(function(selection) {
+    setDeck = function(selection) {
       return $scope.decks.current = new Deck(selection.map(function(connection) {
         return new Card(connection);
       }));
-    });
+    };
+    connections.page().then(setDeck);
     $scope.next = function() {
-      return connections.nextPage().then(function(selection) {
-        return $scope.decks.current = new Deck(selection.map(function(connection) {
-          return new Card(connection);
-        }));
-      });
+      return connections.nextPage().then(setDeck);
     };
     $scope.pageSize = pageSize - 1;
     $scope.gameState = {
@@ -62,6 +57,57 @@
         }
       }
     });
+  });
+
+}).call(this);
+
+(function() {
+  angular.module('App.Models').factory('Animation', function($q) {
+    var Animation;
+    return Animation = (function() {
+      function Animation(element, duration, tween) {
+        this.duration = duration;
+        this.tween = tween;
+        this.deferred = null;
+        this._animationID = null;
+        this.element = angular.element(element);
+      }
+
+      Animation.prototype.start = function() {
+        if (this._animationID != null) {
+          cancelAnimationFrame(this._animationID);
+        }
+        this.startTime = Date.now();
+        this.deferred = $q.defer();
+        requestAnimationFrame(this._animate.bind(this));
+        return this.deferred.promise;
+      };
+
+      Animation.prototype._animate = function() {
+        var diff, now, percent;
+        now = Date.now();
+        diff = now - this.startTime;
+        if (diff < this.duration) {
+          percent = diff / this.duration;
+          this.element.css({
+            transform: "rotateY(" + (this.tween.at(percent)) + "deg)",
+            "webkitTransform": "rotateY(" + (this.tween.at(percent)) + "deg)"
+          });
+          return this._animationID = requestAnimationFrame(this._animate.bind(this));
+        } else {
+          if (this.deferred != null) {
+            this.deferred.resolve("" + this._animationID + " completed");
+            this.deferred = null;
+          }
+          cancelAnimationFrame(this._animationID);
+          this._animationID = null;
+          return this.startTime = null;
+        }
+      };
+
+      return Animation;
+
+    })();
   });
 
 }).call(this);
@@ -162,16 +208,15 @@
 }).call(this);
 
 (function() {
-  angular.module('App.Services').service('connections', function($http, $q, $rootScope, pageSize) {
+  angular.module('App.Services').service('connections', function($http, pageSize) {
     var connections;
     connections = null;
     return {
       pageNum: 1,
       get: function(options) {
-        var count, deferred, start;
+        var count, start;
         start = options.start, count = options.count;
-        deferred = $q.defer();
-        $http({
+        return $http({
           method: 'GET',
           url: location.origin + '/api/connections',
           params: (start != null) && (count != null) ? {
@@ -179,17 +224,7 @@
             count: count
           } : void 0
         }).then(function(response) {
-          connections = response.data;
-          console.log(connections);
-          return deferred.resolve(connections);
-        }, function(error) {
-          return deferred.reject(error);
-        });
-        return deferred.promise;
-      },
-      refresh: function() {
-        return this.get({
-          refresh: true
+          return connections = response.data;
         });
       },
       nextPage: function() {
@@ -261,52 +296,7 @@
 }).call(this);
 
 (function() {
-  angular.module('App.Directives').directive('card', function($http, utils, $q, $rootScope) {
-    var Animation;
-    Animation = (function() {
-      function Animation(element, duration, tween) {
-        this.duration = duration;
-        this.tween = tween;
-        this.deferred = null;
-        this._animationID = null;
-        this.element = angular.element(element);
-      }
-
-      Animation.prototype.start = function() {
-        if (this._animationID != null) {
-          cancelAnimationFrame(this._animationID);
-        }
-        this.startTime = Date.now();
-        this.deferred = $q.defer();
-        requestAnimationFrame(this._animate.bind(this));
-        return this.deferred.promise;
-      };
-
-      Animation.prototype._animate = function() {
-        var diff, now, percent;
-        now = Date.now();
-        diff = now - this.startTime;
-        if (diff < this.duration) {
-          percent = diff / this.duration;
-          this.element.css({
-            transform: "rotateY(" + (this.tween.at(percent)) + "deg)",
-            "webkitTransform": "rotateY(" + (this.tween.at(percent)) + "deg)"
-          });
-          return this._animationID = requestAnimationFrame(this._animate.bind(this));
-        } else {
-          if (this.deferred != null) {
-            this.deferred.resolve("" + this._animationID + " completed");
-            this.deferred = null;
-          }
-          cancelAnimationFrame(this._animationID);
-          this._animationID = null;
-          return this.startTime = null;
-        }
-      };
-
-      return Animation;
-
-    })();
+  angular.module('App.Directives').directive('card', function(utils, $rootScope, Animation) {
     return {
       restrict: 'E',
       template: "<div class=\"card-container\" ng-class=\"[color, set == true ? 'set' : '']\">\n  <div class=\"face front\" ng-class=\"card.type\">\n    <img ng-if=\"card.picture\" ng-src=\"{{card.picture}}\" alt=\"\">\n    <h4 class=\"name\" ng-if=\"card.name\" ng-bind=\"card.name\"></h4>\n    <p class=\"title\" ng-if=\"card.title\" ng-bind=\"card.title\"></p>\n  </div>\n  <div class=\"face back\">\n    <h2>C</h2>\n  </div>\n</div>",

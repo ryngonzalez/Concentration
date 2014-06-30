@@ -1,11 +1,10 @@
 .entrance {
+  // center vertically and horizontally
   @extend %absolute-center;
   height: 200px;
   text-align: center;
   
-  .logo {
-    margin-bottom: 24px;    
-  }
+  .logo { margin-bottom: 24px; }
 
   .description {
     margin-bottom: 48px;
@@ -15,9 +14,7 @@
   .login-button {
     display: inline-block;
     margin-bottom: 20px;
-    span {
-      font-weight: 600;
-    }
+    span { font-weight: 600; }
   }
 
 }

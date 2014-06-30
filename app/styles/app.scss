@@ -2,14 +2,11 @@
 @import 'utils/index';
 @include meyer-reset();
 
-
 @import 'colors';
 @import 'typography';
 @import 'views/index';
 
-* {
-  @include prefix-property(box-sizing, border-box); 
-}
+* { @include prefix-property(box-sizing, border-box); }
 
 html, body {
   background: #fcfcfc;
