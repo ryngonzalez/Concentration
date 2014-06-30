@@ -14,3 +14,6 @@ bower install
 
 ## Usage
 To play the game, spin up the server with `foreman start`.
+
+## Developing
+To build, start gulp with `gulp` and the server with `foreman start`.
