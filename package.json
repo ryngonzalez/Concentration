@@ -8,6 +8,7 @@
   },
   "author": "Ryan Gonzalez",
   "devDependencies": {
+    "dotenv-node": "0.0.2",
     "gulp": "^3.8.5",
     "gulp-bower-files": "^0.2.5",
     "gulp-coffee": "^2.0.1",

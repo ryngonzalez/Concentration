@@ -3,6 +3,11 @@ express              = require 'express'
 
 app = express()
 
+# Load up environment variables from DotEnv if needed
+if app.get('env') is 'development'
+  DotEnv = require('dotenv-node')
+  new DotEnv()
+
 # Setup the app
 require('./server/config')(app)
 require('./server/login')(app)
