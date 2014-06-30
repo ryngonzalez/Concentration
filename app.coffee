@@ -17,6 +17,6 @@ app.get '/play', ensureAuth, (req, res) ->
   res.sendfile(__dirname + '/server/build/play.html')
 
 if not module.parent
-  app.listen(3000)
+  app.listen(process.env.PORT or 3000)
 
 module.exports = app
