@@ -1,26 +1,12 @@
 {
   "name": "Concentration",
+  "private": true,
   "version": "0.0.0",
-  "description": "A game of connections.",
-  "main": "app/server.coffee",
   "scripts": {
     "test": "gulp test",
     "start": "coffee app.coffee"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ryngonzalez/Concentration"
-  },
-  "keywords": [
-    "memory",
-    "concentration"
-  ],
   "author": "Ryan Gonzalez",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ryngonzalez/Concentration/issues"
-  },
-  "homepage": "https://github.com/ryngonzalez/Concentration",
   "devDependencies": {
     "gulp": "^3.8.5",
     "gulp-angular-templatecache": "^1.2.1",
