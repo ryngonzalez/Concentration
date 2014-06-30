@@ -20,7 +20,7 @@ module.exports = (app) ->
   url = if app.get('env') is 'development'
     'http://localhost:3000'
   else
-    'http://concentration.herokuapp.com'
+    'http://concentrationapp.herokuapp.com'
 
   # Setup and use the strategy
   linkedinConfig =
