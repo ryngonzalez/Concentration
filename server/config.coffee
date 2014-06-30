@@ -22,6 +22,8 @@ module.exports = (app) ->
   else
     'http://concentrationapp.herokuapp.com'
 
+  console.log url
+
   # Setup and use the strategy
   linkedinConfig =
     scope:             ['r_basicprofile', 'r_network']
