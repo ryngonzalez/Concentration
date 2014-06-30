@@ -24,5 +24,13 @@ angular.module('App', dependencies)
     $scope.decks.current = new Deck(selection.map (connection) ->
       new Card(connection)
     )
-    
+
+  $scope.gameState = 
+    matches: []
+
+  Object.defineProperties $scope.gameState, 
+    last:
+      get: -> @matches[@matches.length - 1]
+    score:
+      get: -> @matches.filter((match) -> match.length > 1).length
 )

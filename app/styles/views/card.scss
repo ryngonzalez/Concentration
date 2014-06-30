@@ -8,6 +8,10 @@
   position: relative;
   margin: 16px;
 
+  &.set {
+    opacity: 0.5;
+  }
+
   &.ng-enter-stagger{
     @include prefix-property(transition-delay, 300ms);
   }
@@ -51,6 +55,20 @@
       border: 1px solid #ddd;
       background-color: white;
       z-index: 2;
+      // &:after {
+        
+      //   display: block;
+      //   position: absolute;
+      //   top: 0;
+      //   left: 0;
+      //   width: 100%;
+      //   height: 100%;
+      //   color: $green;
+      //   border-radius: 8px;
+      //   background: transparentize(lighten($green, 10%), 0.5);
+      //   border: 2px solid $green;
+      //   z-index: 3;
+      // }
     }
     &.back {
       z-index: 1;

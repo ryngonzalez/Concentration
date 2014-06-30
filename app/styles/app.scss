@@ -12,8 +12,6 @@
 }
 
 html, body {
-  font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
-  @include prefix-property(font-smoothing, antialiased);
   background: #fcfcfc;
 }
 
@@ -23,11 +21,40 @@ a {
   &:visited {opacity: 0.5;}
 }
 
+.logo {
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 20px;
+
+  @for $i from 0 through 12 {
+    .char-#{$i} {
+      display: inline-block;
+      vertical-align: middle;        
+      @if $i % 4 == 0 {
+        color: $red;
+        background: transparentize(lighten($red, 20%), 0.9);
+      } @else if $i % 3 == 0 {
+        color: $blue;
+        background: transparentize(lighten($blue, 20%), 0.9);
+      } @else {
+        color: $green;
+        background: transparentize(lighten($green, 20%), 0.9);
+      }
+      width: 50px;
+      border-radius: 4px;
+      padding-top: 5px;
+      height: 50px;
+      margin-left: -20px;
+    }
+  }
+
+}
+
 .button {
   $size: 16px;
   padding: $size $size*2;
   border-radius: 4px;
   background-color: $blue;
   &:hover { background-color: darken($blue, 5%); }
-  &:active { background-color: darken($blue, 10%); box-shadow: inset 0px 0px 4px rgba(0,0,0,0.3); }
+  &:active { background-color: darken($blue, 10%); box-shadow: inset 0px 0px 8px rgba(0,0,0,0.3); }
 }

@@ -1,7 +1,9 @@
-@import 'utils/rem';
+@import 'utils/index';
 
 html, body {
   font-size: 16px;
+  font-family: "ff-tisa-sans-web-pro", "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  @include prefix-property(font-smoothing, antialiased);
 }
 
 h1 { @include rem(font-size, 36px); }

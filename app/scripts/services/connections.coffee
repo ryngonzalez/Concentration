@@ -30,9 +30,9 @@ angular.module('App.Services')
 
     nextPage: ->
       @pageNum += 1
-      @page({pageSize: 18, pageNum: @pageNum})
+      @page({pageSize: 9, pageNum: @pageNum})
 
-    page: (options = {pageSize: 18, pageNum: 1}) ->
+    page: (options = {pageSize: 9, pageNum: 1}) ->
       {pageSize, pageNum} = options
 
       # Pagination must start from first item

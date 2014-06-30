@@ -15,11 +15,23 @@
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
 <body ng-app="App">
-<div class="game-container">
-  <h1 ng-bind-html="'Concentration' | lettering" class="title"></h1>  
-  <div ng-controller="GameController">
+<div class="game-container" ng-controller="GameController">
+  <div class="controls">
+    <div class="left-controls">
+      <a href="/logout" class="button">Logout</a>
+    </div>
+    <div class="center">
+      <h1 ng-bind-html="'Concentration' | lettering" class="logo"></h1>  
+      <p>Flip cards and match a name to a face!</p>
+    </div>
+    <div class="right-controls">
+      <a class="button">Score: <span ng-bind="gameState.score"></span></a>
+    </div>
+    
+  </div>
+  <div>
     <div class="deck">
-      <card info="card" ng-repeat="card in decks.current.all()"></card>
+      <card info="card" state="gameState" ng-repeat="card in decks.current.all()"></card>
     </div>
   </div>
 </div>
