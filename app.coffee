@@ -16,7 +16,12 @@ app.get '/', goPlay, (req, res) ->
 app.get '/play', ensureAuth, (req, res) ->
   res.sendfile(__dirname + '/server/build/play.html')
 
+if app.get('env') is 'development'
+  app.set('port', 3000)
+else
+  app.set('port', process.env.PORT)
+
 if not module.parent
-  app.listen(process.env.PORT or 3000)
+  app.listen app.get('port')
 
 module.exports = app
