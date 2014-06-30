@@ -1,11 +1,13 @@
 (function() {
   var dependencies;
 
-  dependencies = ['ngAnimate', 'App.Models', 'App.Services', 'App.Directives'];
+  dependencies = ['ngAnimate', 'ngSanitize', 'App.Models', 'App.Services', 'App.Directives', 'App.Filters'];
 
   angular.module('App.Directives', []);
 
   angular.module('App.Services', []);
+
+  angular.module('App.Filters', []);
 
   angular.module('App.Models', []);
 
@@ -195,7 +197,7 @@
 }).call(this);
 
 (function() {
-  angular.module('App.Directives').directive('card', function($http) {
+  angular.module('App.Directives').directive('card', function($http, utils) {
     var Animation;
     Animation = (function() {
       function Animation(element, duration, tween) {
@@ -217,7 +219,6 @@
         var diff, now, percent;
         now = Date.now();
         diff = now - this.startTime;
-        console.log(diff, this.startTime, now);
         if (diff < this.duration) {
           percent = diff / this.duration;
           this.element.css('-webkit-transform', "rotateY(" + (this.tween.at(percent)) + "deg)");
@@ -234,13 +235,15 @@
     })();
     return {
       restrict: 'E',
-      template: "<div class=\"card-container\">\n  <div class=\"face front\" ng-class=\"card.type\">\n    <img ng-if=\"card.picture\" ng-src=\"{{card.picture}}\" alt=\"\">\n    <h4 class=\"name\" ng-if=\"card.name\" ng-bind=\"card.name\"></h4>\n    <p class=\"title\" ng-if=\"card.title\" ng-bind=\"card.title\"></p>\n  </div>\n  <div class=\"face back\">\n    <h2>C</h2>\n  </div>\n</div>",
+      template: "<div class=\"card-container\" ng-class=\"color\">\n  <div class=\"face front\" ng-class=\"card.type\">\n    <img ng-if=\"card.picture\" ng-src=\"{{card.picture}}\" alt=\"\">\n    <h4 class=\"name\" ng-if=\"card.name\" ng-bind=\"card.name\"></h4>\n    <p class=\"title\" ng-if=\"card.title\" ng-bind=\"card.title\"></p>\n  </div>\n  <div class=\"face back\">\n    <h2>C</h2>\n  </div>\n</div>",
       replace: true,
       scope: {
         card: '=info'
       },
       link: function(scope, element, attrs) {
         var back, flipToBack, flipToFront, flipped, front;
+        scope.color = utils.sample(['blue', 'red', 'green']);
+        console.log(scope.color);
         flipped = true;
         back = new TweenMachine(180, 0);
         back.easing('Elastic.Out').interpolation('Bezier');
@@ -258,6 +261,20 @@
             return flipped = true;
           }
         });
+      }
+    };
+  });
+
+}).call(this);
+
+(function() {
+  angular.module('App.Filters').filter('lettering', function() {
+    return function(text) {
+      if (text != null) {
+        text = Array.prototype.map.call(text, function(character, index) {
+          return "<span class='char-" + index + "'>" + character + "</span>";
+        });
+        return text.join('');
       }
     };
   });

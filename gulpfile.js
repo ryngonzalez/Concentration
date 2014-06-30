@@ -24,7 +24,7 @@ gulp.task('scss', function(){
   return gulp.src('app/styles/**/*.scss')
              .pipe(sass({onError: onError}))
              .pipe(concat('app.css'))
-             .pipe(cssmin())
+             .pipe(cssmin({keepBreaks: true}))
              .pipe(gulp.dest(prefix('/styles')));
 });
 

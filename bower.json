@@ -24,6 +24,7 @@
   "dependencies": {
     "angular": "~1.2.18",
     "angular-animate": "~1.2.18",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "angular-sanitize": "~1.2.18"
   }
 }

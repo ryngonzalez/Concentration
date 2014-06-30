@@ -1,6 +1,6 @@
 angular.module('App.Directives')
 
-.directive('card', ($http) ->
+.directive('card', ($http, utils) ->
 
   class Animation
 
@@ -18,7 +18,6 @@ angular.module('App.Directives')
     _animate: ->
       now = Date.now()
       diff = (now - @startTime)
-      console.log diff, @startTime, now
       if diff < @duration
         percent = diff/@duration
         @element.css('-webkit-transform', "rotateY(#{@tween.at(percent)}deg)")
@@ -31,7 +30,7 @@ angular.module('App.Directives')
   return {
     restrict: 'E'
     template: """
-    <div class="card-container">
+    <div class="card-container" ng-class="color">
       <div class="face front" ng-class="card.type">
         <img ng-if="card.picture" ng-src="{{card.picture}}" alt="">
         <h4 class="name" ng-if="card.name" ng-bind="card.name"></h4>
@@ -46,6 +45,9 @@ angular.module('App.Directives')
     scope:
       card: '=info'
     link: (scope, element, attrs) ->
+
+      scope.color = utils.sample(['blue', 'red', 'green'])
+      console.log scope.color
 
       # updated = false
       flipped = true

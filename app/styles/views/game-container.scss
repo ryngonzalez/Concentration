@@ -1,0 +1,33 @@
+@import '../utils/index';
+@import '../colors';
+
+.game-container {
+  h1 {
+    font-family: "ff-tisa-sans-web-pro";
+    font-weight: 600;
+    text-align: center;
+    margin: 40px 0;
+
+    @for $i from 0 through 12 {
+      .char-#{$i} {
+        display: inline-block;
+        vertical-align: middle;
+        @if $i % 4 == 0 {
+          color: $red;
+          background: transparentize(lighten($red, 20%), 0.9);
+        } @else if $i % 3 == 0 {
+          color: $blue;
+          background: transparentize(lighten($blue, 20%), 0.9);
+        } @else {
+          color: $green;
+          background: transparentize(lighten($green, 20%), 0.9);
+        }
+        width: 50px;
+        border-radius: 4px;
+        padding-top: 5px;
+        height: 50px;
+        margin-left: -20px;
+      }
+    }
+  }
+}
