@@ -13,7 +13,9 @@ angular.module('App.Filters', [])
 angular.module('App.Models', [])
 angular.module('App', dependencies)
 
-.controller('GameController', ($scope, connections, profile, Deck, Card) ->
+.constant('pageSize', 9)
+
+.controller('GameController', ($scope, connections, profile, Deck, Card, pageSize) ->
   console.log 'Loaded game controller'
   window.connections = connections
   
@@ -35,7 +37,7 @@ angular.module('App', dependencies)
         new Card(connection)
       )
 
-  $scope.pageSize = 8
+  $scope.pageSize = pageSize - 1
 
   $scope.gameState = 
     matches: []

@@ -24,7 +24,10 @@ angular.module('App.Directives')
       diff = (now - @startTime)
       if diff < @duration
         percent = diff/@duration
-        @element.css('-webkit-transform', "rotateY(#{@tween.at(percent)}deg)")
+        @element.css({
+          transform: "rotateY(#{@tween.at(percent)}deg)"
+          "webkitTransform": "rotateY(#{@tween.at(percent)}deg)"
+        })
         @_animationID = requestAnimationFrame @_animate.bind(this)
       else
 

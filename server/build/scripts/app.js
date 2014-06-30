@@ -11,7 +11,7 @@
 
   angular.module('App.Models', []);
 
-  angular.module('App', dependencies).controller('GameController', function($scope, connections, profile, Deck, Card) {
+  angular.module('App', dependencies).constant('pageSize', 9).controller('GameController', function($scope, connections, profile, Deck, Card, pageSize) {
     console.log('Loaded game controller');
     window.connections = connections;
     $scope.decks = {
@@ -33,7 +33,7 @@
         }));
       });
     };
-    $scope.pageSize = 8;
+    $scope.pageSize = pageSize - 1;
     $scope.gameState = {
       matches: []
     };
@@ -162,7 +162,7 @@
 }).call(this);
 
 (function() {
-  angular.module('App.Services').service('connections', function($http, $q, $rootScope) {
+  angular.module('App.Services').service('connections', function($http, $q, $rootScope, pageSize) {
     var connections;
     connections = null;
     return {
@@ -195,15 +195,15 @@
       nextPage: function() {
         this.pageNum += 1;
         return this.page({
-          pageSize: 9,
+          pageSize: pageSize,
           pageNum: this.pageNum
         });
       },
       page: function(options) {
-        var end, pageNum, pageSize, start;
+        var end, pageNum, start;
         if (options == null) {
           options = {
-            pageSize: 9,
+            pageSize: pageSize,
             pageNum: 1
           };
         }
@@ -288,7 +288,10 @@
         diff = now - this.startTime;
         if (diff < this.duration) {
           percent = diff / this.duration;
-          this.element.css('-webkit-transform', "rotateY(" + (this.tween.at(percent)) + "deg)");
+          this.element.css({
+            transform: "rotateY(" + (this.tween.at(percent)) + "deg)",
+            "webkitTransform": "rotateY(" + (this.tween.at(percent)) + "deg)"
+          });
           return this._animationID = requestAnimationFrame(this._animate.bind(this));
         } else {
           if (this.deferred != null) {
