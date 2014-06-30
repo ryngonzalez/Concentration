@@ -16,4 +16,7 @@ app.get '/', goPlay, (req, res) ->
 app.get '/play', ensureAuth, (req, res) ->
   res.sendfile(__dirname + '/server/build/play.html')
 
-app.listen(3000)
+if not module.parent
+  app.listen(3000)
+
+module.exports = app
