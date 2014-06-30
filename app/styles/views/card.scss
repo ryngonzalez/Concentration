@@ -9,8 +9,11 @@
   margin: 16px;
 
   &.set {
-    .face.front:after {
-      opacity: 1;
+    .face.front {
+      border: none;
+      &:after {
+        opacity: 1;
+      }
     }
   }
 
@@ -72,7 +75,7 @@
         background-color: transparentize(#333, 0.2);
         background-image: url(/assets/check.png);
         background-repeat: no-repeat;
-        background-size: 44px;
+        background-size: 32px;
         background-position: 50% 50%;
         z-index: 3;
       }

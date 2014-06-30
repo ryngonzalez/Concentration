@@ -32,9 +32,16 @@ angular.module('App', dependencies)
   $scope.gameState = 
     matches: []
 
+  $scope.showScores = false
+
+  $scope.cardify = (match) ->
+    Card.find(match[0].id)
+
   Object.defineProperties $scope.gameState, 
     last:
       get: -> @matches[@matches.length - 1]
+    completeMatches:
+      get: -> @matches.filter((match) -> match.length > 1)
     score:
       get: -> @matches.filter((match) -> match.length > 1).length
 )

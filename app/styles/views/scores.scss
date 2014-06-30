@@ -1,0 +1,30 @@
+@import '../utils/index';
+
+.scores {
+  width: 100%;
+  background: #f6f6f6;
+  border-bottom: 1px solid #ddd;
+  padding: 16px;
+  h2 {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 16px;
+  }
+  ul {
+    overflow-x: scroll;
+    white-space: nowrap;
+    li {
+      display: inline-block;
+      text-align: center;
+      margin-right: 16px;
+      p {
+        color: #666;
+      }
+      img {
+        height: 44px;
+        border-radius: 4px;
+        margin-bottom: 8px;
+      }
+    }
+  }
+}

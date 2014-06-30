@@ -16,6 +16,16 @@
 </head>
 <body ng-app="App">
 <div class="game-container" ng-controller="GameController">
+  <div class="scores" ng-if="showScores">
+    <h2>Matches Made</h2>
+    <ul>
+      <li ng-repeat="match in gameState.completeMatches">
+        <img ng-src="{{cardify(match).picture}}" alt="">
+        <p ng-bind="cardify(match).name"></p>
+      </li>
+    </ul>
+  </div>
+
   <div class="controls">
     <div class="left-controls">
 
@@ -26,7 +36,7 @@
       <p>Hi, <span ng-bind="user.firstName"></span>! Flip cards and match a name to a face!</p>
     </div>
     <div class="right-controls">
-      <a class="button">Score: <span ng-bind="gameState.score"></span></a>
+      <a class="button" ng-click="showScores = !showScores">Score: <span ng-bind="gameState.score"></span></a>
     </div>
     
   </div>
@@ -35,6 +45,7 @@
       <card info="card" state="gameState" ng-repeat="card in decks.current.all()"></card>
     </div>
   </div>
+
 </div>
 </body>
 </html>

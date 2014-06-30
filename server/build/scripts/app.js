@@ -29,10 +29,21 @@
     $scope.gameState = {
       matches: []
     };
+    $scope.showScores = false;
+    $scope.cardify = function(match) {
+      return Card.find(match[0].id);
+    };
     return Object.defineProperties($scope.gameState, {
       last: {
         get: function() {
           return this.matches[this.matches.length - 1];
+        }
+      },
+      completeMatches: {
+        get: function() {
+          return this.matches.filter(function(match) {
+            return match.length > 1;
+          });
         }
       },
       score: {
@@ -51,13 +62,20 @@
   angular.module('App.Models').factory('Card', function() {
     var Card;
     return Card = (function() {
+      Card.cards = {};
+
       function Card(connection) {
         var firstName, headline, lastName, pictureUrl;
         this.id = connection.id, firstName = connection.firstName, lastName = connection.lastName, pictureUrl = connection.pictureUrl, headline = connection.headline;
         this.name = "" + firstName + " " + lastName;
         this.picture = pictureUrl;
         this.title = headline;
+        Card.cards[this.id] = this;
       }
+
+      Card.find = function(id) {
+        return Card.cards[id];
+      };
 
       return Card;
 
